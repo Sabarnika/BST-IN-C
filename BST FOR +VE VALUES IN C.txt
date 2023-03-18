@@ -1,0 +1,70 @@
+// You are using GCC
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+    int data;
+    struct node *left,*right;
+};
+struct node *create(int a)
+{
+    struct node *newn=(struct node *)malloc(sizeof(struct node));
+    newn->data=a;
+    newn->left=NULL;
+    newn->right=NULL;
+}
+struct node *insert(struct node *root,int a)
+{
+    if(root==NULL)
+    return create(a);
+    else if(a<root->data)
+    root->left=insert(root->left,a);
+    else if(a>root->data)
+    root->right=insert(root->right,a);
+    return root;
+}
+int search(struct node *root,int s)
+{
+    while(root->data!=s)
+    {
+        if(s<root->data)
+        {
+            if(root->left!=NULL)
+            root=root->left;
+            else
+            return 0;
+        }
+        else if(s>root->data)
+        {
+            if(root->right!=NULL)
+            root=root->right;
+            else
+            return 0;
+        }
+    }
+    return 1;
+}
+int main()
+{
+    int n=1,s;
+    struct node *root=NULL;
+    while(n!=0)
+    {
+        int a;
+        scanf("%d",&a);
+        if(a<1)
+        {
+           n=0;
+           break;
+        }
+        root=insert(root,a);
+    }
+    scanf("%d",&s);
+    s=search(root,s);
+    if(s==1)
+        printf("Yes");
+    else
+    printf("No");
+    
+    
+}
