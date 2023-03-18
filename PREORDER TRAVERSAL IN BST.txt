@@ -1,0 +1,69 @@
+// You are using GCC
+#include<stdio.h>
+#include<stdlib.h>
+int preorder(struct node *w);
+struct node
+{
+    struct node *l;
+    int data;
+    struct node *r;
+}*h=NULL,*t=NULL,*n=NULL;
+int main()
+{
+    int x,a;
+    scanf("%d",&x);
+    while(x>0)
+    {
+        n=(struct node*)malloc(sizeof(struct node));
+        n->l=NULL;
+        n->data=x;
+        n->r=NULL;
+        t=h;
+        while(t!=NULL)
+        {
+            if(x< t->data)
+            {
+                if(t->l!=NULL)
+                {
+                    t=t->l;
+                }
+                else
+                {
+                    t->l=n;
+                    t=NULL;
+                }
+            }
+            else
+            {
+                if(t->r!=NULL)
+                {
+                    t=t->r;
+                }
+                else
+                {
+                    t->r=n;
+                    t=NULL;
+                }
+            }
+        }
+        if(h==NULL)
+        {
+            h=n;
+        }
+        scanf("%d",&x);
+    }
+    preorder(h);
+}
+int preorder(struct node  *w)
+{
+    if(w==NULL)
+    {
+        return 1;
+    }
+    else
+    {
+        printf("%d ",w->data);
+        preorder(w->l);
+        preorder(w->r);
+    }
+}
